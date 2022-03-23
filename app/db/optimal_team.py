@@ -60,8 +60,16 @@ def get_optimal_team(session: Session, points: int) -> OptimalTeam:
     points_per_player = points_per_game / 5
     player_names: List[str] = []
 
-    # I always select player with the specified role whose performance
-    # is the nearest to points_per_player
+    # I'm not sure that I select the optimal player here correctly -
+    # as I understood from the task, the team should have approximately specified amount
+    # of points(no more no less). I always select player with the specified role
+    # whose performance is the nearest to points_per_player, but he should be the youngest.
+    # If I start choosing the youngest player, his performance will be worse, and our team
+    # team will not get the expected number of points. And if I start choosing the youngest
+    # player, whose performance is better than points_per_player, our team could have
+    # much more expected points. In this case we can choose a player with even better
+    # performance, but very old. So I think we should not solve the problem with these methods
+
     point_guard = get_player_with_the_nearest_performance(
         points_per_player, player_names, POINT_GUARD_ID, session
     )
