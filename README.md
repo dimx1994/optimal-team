@@ -34,11 +34,36 @@ To use web interface go to url http://0.0.0.0:5000/
 You could use api for getting the optimal team:
 
 ```bash
- curl "http://0.0.0.0:5000/api/v1/optimal-team?points=100" 
+ curl "http://0.0.0.0:5000/api/v1/optimal-team?points=4000" 
 ```
 Response:
 ```json
-{"players":[{"name":"George McLeod","points":12},{"name":"Jack McMahon","points":507},{"name":"Monk Meineke","points":725},{"name":"Stan Miasek","points":512},{"name":"Stan Miasek","points":283}]}
+{
+  "points_per_season": 4000,
+  "avg_games_in_season": 50,
+  "points_per_game": 78.68267864289635,
+  "points_per_player": 15.736535728579268,
+  "point_guard": {
+    "name": "Howard Komives",
+    "performance": 15.707692307692307
+  },
+  "shooting_guard": {
+    "name": "Ricky Sobers",
+    "performance": 15.731707317073171
+  },
+  "small_forward": {
+    "name": "Wilson Chandler",
+    "performance": 15.732394366197184
+  },
+  "power_forward": {
+    "name": "Danny Manning",
+    "performance": 15.73076923076923
+  },
+  "center": {
+    "name": "Robert Parish",
+    "performance": 15.734177215189874
+  }
+}
 ```
 
 Or you could use swagger http://0.0.0.0:5000/docs
