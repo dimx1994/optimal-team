@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8" http-equiv="Cache-control" content="no-cache">
+ <title>Optimal Team Builder</title>
+</head>
+<body>
+<h1>Optimal Team Builder</h1>
+
+<form id="form">
+    <label for="points">Enter points number:</label>
+    <br><br>
+    <input type="number" name="points"  id="points" min="1" max="100000" required="required" value="4000">
+    <button type="submit">Submit</button>
+</form>
+
+<div id="team"></div>
+<script>
+    const div = document.getElementById('team');
+    var form = document.getElementById('form');
+    form.onsubmit = function(event) {
+        event.preventDefault();
+        const formData = new FormData(form);
+        const url = '/api/v1/optimal-team?points=' + formData.get('points');
+        fetch(url)
+            .then((resp) => resp.json())
+            .then(function(data) {
+                div.innerHTML =
+                    `<p>Points per season: ${data.points_per_season}</p>
+                    <p>(Avg) games in a season: ${data.avg_games_in_season}</p>
+                    <p>Points per game: ${data.points_per_game.toFixed(2)}</p>
+                    <p>Points per player: ${data.points_per_player.toFixed(2)}</p>
+                    <h3>Players:</h3>
+                    <ul>
+                        <li>PG: <b>${data.point_guard.name}</b> performance: ${data.point_guard.performance.toFixed(2)}</li>
+                        <li>SG: <b>${data.shooting_guard.name}</b> performance: ${data.shooting_guard.performance.toFixed(2)}</li>
+                        <li>SF: <b>${data.small_forward.name}</b> performance: ${data.small_forward.performance.toFixed(2)}</li>
+                        <li>PF: <b>${data.power_forward.name}</b> performance: ${data.power_forward.performance.toFixed(2)}</li>
+                        <li>C: <b>${data.center.name}</b> performance: ${data.center.performance.toFixed(2)}</li>
+                    </ul>`;
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    };
+</script>
+</body>
+</html>
